@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Beacon {
+  id   Int    @id @default(autoincrement())
+  uuid String @unique
+
+  subject     Subject   @relation(fields: [subjectId], references: [id])
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
+  teacher     Teacher   @relation(fields: [teacherId], references: [id])
+  subjectId   Int
+  classroomId Int
+  teacherId   Int
+}
+
+model Classroom {
+  id        Int @id @default(autoincrement())
+  labNumber Int @unique
+
+  Beacon    Beacon[]
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+  subjectId Int
+}
+
+model Course {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  subjects Subject[] @relation("CourseSubjects")
+  students Student[] @relation("StudentCourses")
+}
+
+model Student {
+  id                 Int      @id @default(autoincrement())
+  cpf                String   @unique
+  academicalRegister String   @unique
+  password           String?   
+  name               String
+  email              String
+  birthDate          String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  subjects Subject[] @relation("StudentSubjects")
+  courses  Course[]  @relation("StudentCourses")
+}
+
+model Subject {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  workload    Int
+
+  beacons    Beacon[]
+  classrooms Classroom[]
+  courses    Course[]    @relation("CourseSubjects")
+  students   Student[]   @relation("StudentSubjects")
+  teachers   Teacher[]   @relation("TeacherSubjects")
+}
+
+model Teacher {
+  id        Int      @id @default(autoincrement())
+  cpf       String   @unique
+  password  String?
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  beacons  Beacon[]
+  subjects Subject[] @relation("TeacherSubjects")
+}
