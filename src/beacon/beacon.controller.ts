@@ -5,38 +5,36 @@ import {
   Body,
   Patch,
   Param,
-  Delete
+  Delete,
+  UseGuards
 } from '@nestjs/common';
 import { BeaconService } from './beacon.service';
 import { CreateBeaconDto } from './dto/create-beacon.dto';
 import { UpdateBeaconDto } from './dto/update-beacon.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 @Controller('beacons')
+@UseGuards(AuthGuard('jwt'))
+@ApiTags('Beacon')
 export class BeaconController {
   constructor(private readonly beaconService: BeaconService) {}
 
   @Post()
+  @ApiSecurity('token')
   create(@Body() createBeaconDto: CreateBeaconDto) {
     return this.beaconService.create(createBeaconDto);
   }
 
   @Get()
+  @ApiSecurity('token')
   findAll() {
     return this.beaconService.findAll();
   }
 
   @Get(':id')
+  @ApiSecurity('token')
   findOne(@Param('id') id: string) {
     return this.beaconService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBeaconDto: UpdateBeaconDto) {
-    return this.beaconService.update(+id, updateBeaconDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.beaconService.remove(+id);
   }
 }

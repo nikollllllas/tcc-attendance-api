@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { LoginDto } from './dto/auth.dto';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
+import { compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -10,30 +11,32 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async validateStudent(cpf: string, password: string): Promise<any> {
-    console.log(`Validating student with CPF: ${cpf}`);
-    const student = await this.prisma.student.findUnique({ where: { cpf } });
-    console.log('Student found:', student);
-    if (student && student.password === password) {
-      return student;
+  async validateUser(loginDto: LoginDto) {
+    const { id: loginId, password } = loginDto;
+
+    const findUser = await this.prisma.user.findUnique({
+      where: { id: loginId }
+    });
+
+    if (!findUser) throw new ForbiddenException('User not found');
+
+    const decodedPassword = await compare(password, findUser.password)
+
+    if (!decodedPassword) {
+      throw new ForbiddenException('Invalid password');
     }
-    return null;
+
+    const { id, name, email } = findUser;
+    const token = this.jwtService.sign({ id, name, email });
+
+    return { token };
   }
 
-  async validateTeacher(cpf: string, password: string): Promise<any> {
-    console.log(`Validating teacher with CPF: ${cpf}`);
-    const teacher = await this.prisma.teacher.findUnique({ where: { cpf } });
-    console.log('Teacher found:', teacher);
-    if (teacher && bcrypt.compareSync(password, teacher.password)) {
-      return teacher;
-    }
-    return null;
-  }
+  async userExists(id: number) {
+    const user = await this.prisma.user.findUnique({
+      where: { id }
+    });
 
-  async login(user: any) {
-    const payload = { username: user.cpf, sub: user.id, role: user.role };
-    return {
-      access_token: this.jwtService.sign(payload)
-    };
+    return user;
   }
 }

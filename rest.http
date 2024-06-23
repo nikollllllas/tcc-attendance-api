@@ -1,27 +1,25 @@
+
+### Var
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbSIsImVtYWlsIjoiYWRtQGVtYWlsLmNvbSIsImlhdCI6MTcxOTE3MjA0MSwiZXhwIjoxNzE5Nzc2ODQxfQ.RxTUGw1xNAnBUsa5DkwlwxUyq4OJ5jHb4KCKWfQ7jlg
+@url = http://localhost:3000
+
 ### Login Request
-POST http://localhost:3000/auth/login
+POST {{url}}/auth/login
 Content-Type: application/json
 
 # Aluno
 {
-  "cpf": "12345678315",
-  "password": "13032003"
+  "id": 2,
+  "password": "123"
 }
 
-# Professor
-# {
-#   "cpf": "01987654325",
-#   "password": "123456"
-# }
-
-###
-
 ### Create - Beacon
-POST http://localhost:3000/beacons
+POST {{url}}/beacons
+token: {{token}}
 Content-Type: application/json
 
 {
-  "uuid": "ah23789-ga12dw",
+  "uuid": "ea332d85-7070-4515-8e6c-36d32b5feaf4",
   "subjectId": 1,
   "classroomId": 5,
   "teacherId": 1
@@ -29,33 +27,18 @@ Content-Type: application/json
 ###
 
 ### Get All - Beacon 
-GET http://localhost:3000/beacons
+GET {{url}}/beacons
+token: {{token}}
 ###
 
 ### Get by Id - Beacon
-GET http://localhost:3000/beacons/13
-
-### Update - Beacon
-PATCH http://localhost:3000/beacons/13
-Content-Type: application/json
-
-
-{
-  "id": 13,
-  "uuid": "UUIDMODIFICADO",
-  "subjectId": 1,
-  "classroomId": 1,
-  "teacherId": 1
-}
-###
-
-### Delete - Beacon
-DELETE http://localhost:3000/beacons/13
-###
+GET {{url}}/beacons/1
+token: {{token}}
 
 
 ### Create - Classroom
-POST http://localhost:3000/classrooms
+POST {{url}}/classrooms
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -65,36 +48,41 @@ Content-Type: application/json
 ###
 
 ### Get All - Classroom
-GET http://localhost:3000/classrooms
+GET {{url}}/classrooms
+token: {{token}}
 ###
 
 ### Get by Id - Classroom
-GET http://localhost:3000/classrooms/3
+GET {{url}}/classrooms/7
+token: {{token}}
 ###
 
 ### Update - Classroom
-PATCH http://localhost:3000/classrooms/3
+PATCH {{url}}/classrooms/7
+token: {{token}}
 Content-Type: application/json
 
 {
-  "labNumber": 11,
+  "labNumber": 50,
   "subjectId": 1
 }
 ###
 
 ### Delete - Classroom
-DELETE http://localhost:3000/classrooms/6
+DELETE {{url}}/classrooms/7
+token: {{token}}
 ###
 
 
 
 ### Create - Course
-POST http://localhost:3000/courses
+POST {{url}}/courses
+token: {{token}}
 Content-Type: application/json
 
 {
-  "name": "Arq. e Urb.",
-  "description": "Bacharelado em Arquitetura e Urbanismo",
+  "name": "Sis. Informação",
+  "description": "Bacharelado em Sis. Informação",
   "subjects": [1, 2, 3],
   "students": [6]
 }
@@ -102,15 +90,18 @@ Content-Type: application/json
 ###
 
 ### Get All - Course
-GET http://localhost:3000/courses
+GET {{url}}/courses
+token: {{token}}
 ###
 
 ### Get by Id - Course
-GET http://localhost:3000/courses/2
+GET {{url}}/courses/7
+token: {{token}}
 ###
 
 ### Update - Course
-PATCH  http://localhost:3000/courses/3
+PATCH  {{url}}/courses/8
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -122,13 +113,15 @@ Content-Type: application/json
 ###
 
 ### Delete - Course
-DELETE http://localhost:3000/courses/3
+DELETE {{url}}/courses/3
+token: {{token}}
 ###
 
 
 
 ### Create - Subject
-POST http://localhost:3000/subjects
+POST {{url}}/subjects
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -140,15 +133,18 @@ Content-Type: application/json
 ###
 
 ### Get All - Subject
-GET http://localhost:3000/subjects
+GET {{url}}/subjects
+token: {{token}}
 ###
 
 ### Get by Id - Subject
-GET http://localhost:3000/subjects/3
+GET {{url}}/subjects/3
+token: {{token}}
 ###
 
 ### Update - Subject
-PATCH http://localhost:3000/subjects/4
+PATCH {{url}}/subjects/4
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -159,13 +155,15 @@ Content-Type: application/json
 ###
 
 ### Delete - Subject
-DELETE http://localhost:3000/subjects/3
+DELETE {{url}}/subjects/3
+token: {{token}}
 ###
 
 
 
 ### Create - Student
-POST http://localhost:3000/students
+POST {{url}}/students
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -181,15 +179,19 @@ Content-Type: application/json
 ###
 
 ### Get All - Student
-GET http://localhost:3000/students
+GET {{url}}/students
+token: {{token}}
+token: 
 ###
 
 ### Get by Id - Student
-GET http://localhost:3000/students/123
+GET {{url}}/students/123
+token: {{token}}
 ###
 
 ### Update - Student
-PATCH http://localhost:3000/students/4
+PATCH {{url}}/students/4
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -205,31 +207,38 @@ Content-Type: application/json
 ###
 
 ### Delete - Student
-DELETE http://localhost:3000/students/123
+DELETE {{url}}/students/123
+token: {{token}}
 ###
 
 
 ### Create - Teacher
-POST http://localhost:3000/teachers
+POST {{url}}/teachers
+token: {{token}}
 Content-Type: application/json
 
 {
-  "name": "joão clementino",
-  "cpf": "01987654352"
+  "name": "joão teste",
+  "cpf": "01987654353",
+  "email": "joao.teste@email.com",
+  "subjects": [1, 2]
 }
 
 ###
 
 ### Get All - Teacher
-GET http://localhost:3000/teachers
+GET {{url}}/teachers
+token: {{token}}
 ###
 
 ### Get by Id - Teacher
-GET http://localhost:3000/teachers/1
+GET {{url}}/teachers/1
+token: {{token}}
 ###
 
 ### Update - Teacher
-PATCH http://localhost:3000/teachers/1
+PATCH {{url}}/teachers/1
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -239,5 +248,6 @@ Content-Type: application/json
 ###
 
 ### Delete - Teacher
-DELETE http://localhost:3000/teachers/3
+DELETE {{url}}/teachers/3
+token: {{token}}
 ###

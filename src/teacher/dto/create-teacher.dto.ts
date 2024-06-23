@@ -5,10 +5,10 @@ export class CreateTeacherDto {
   cpf: string;
 
   @IsString()
-  password: string;
+  name: string;
 
   @IsString()
-  name: string;
+  email: string;
 
   @IsArray()
   @IsInt({ each: true })

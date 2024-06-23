@@ -7,9 +7,11 @@ import { ClassroomModule } from './classroom/classroom.module';
 import { SubjectModule } from './subject/subject.module';
 import { BeaconModule } from './beacon/beacon.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     PrismaModule,
     BeaconModule,

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class StudentService {
@@ -24,7 +25,7 @@ export class StudentService {
       throw new NotFoundException('Some courses were not found');
     }
 
-    return this.prisma.student.create({
+    const student = this.prisma.student.create({
       data: {
         ...createStudentDto,
         subjects: {
@@ -35,6 +36,18 @@ export class StudentService {
         }
       }
     });
+
+    const hashedPassword = await hash('123456', 8);
+
+    await this.prisma.user.create({
+      data: {
+        name: createStudentDto.name,
+        email: createStudentDto.email,
+        password: hashedPassword,
+      }
+    });
+
+    return student;
   }
 
   findAll() {

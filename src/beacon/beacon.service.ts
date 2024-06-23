@@ -18,12 +18,4 @@ export class BeaconService {
   findOne(id: number) {
     return this.prisma.beacon.findUnique({ where: { id } });
   }
-
-  update(id: number, updateBeaconDto: UpdateBeaconDto) {
-    return this.prisma.beacon.update({ where: { id }, data: updateBeaconDto });
-  }
-
-  remove(id: number) {
-    return this.prisma.beacon.delete({ where: { id } });
-  }
 }
