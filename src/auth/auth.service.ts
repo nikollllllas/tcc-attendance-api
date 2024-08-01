@@ -20,7 +20,7 @@ export class AuthService {
 
     if (!findUser) throw new ForbiddenException('User not found');
 
-    const decodedPassword = await compare(password, findUser.password)
+    const decodedPassword = await compare(password, findUser.password);
 
     if (!decodedPassword) {
       throw new ForbiddenException('Invalid password');

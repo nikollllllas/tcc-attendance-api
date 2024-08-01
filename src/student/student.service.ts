@@ -43,7 +43,7 @@ export class StudentService {
       data: {
         name: createStudentDto.name,
         email: createStudentDto.email,
-        password: hashedPassword,
+        password: hashedPassword
       }
     });
 
