@@ -1,6 +1,6 @@
 
 ### Var
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbSIsImVtYWlsIjoiYWRtQGVtYWlsLmNvbSIsImlhdCI6MTcxOTE3MjA0MSwiZXhwIjoxNzE5Nzc2ODQxfQ.RxTUGw1xNAnBUsa5DkwlwxUyq4OJ5jHb4KCKWfQ7jlg
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Im5pa29sbGFzIG9odGEiLCJlbWFpbCI6Im5pa29sbGFzQGVtYWlsLmNvbSIsImlhdCI6MTcyMjU1MDExMywiZXhwIjoxNzIzMTU0OTEzfQ.P4y30FPgsCU9aAXbcJCdKkpoESKhLmAkyjGsXbH6FbE
 @url = http://localhost:3000
 
 ### Login Request
@@ -10,7 +10,7 @@ Content-Type: application/json
 # Aluno
 {
   "id": 2,
-  "password": "123"
+  "password": "123456"
 }
 
 ### Create - Beacon

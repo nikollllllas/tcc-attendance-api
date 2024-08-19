@@ -14,9 +14,6 @@ export class CreateStudentDto {
   academicalRegister: string;
 
   @IsString()
-  password: string;
-
-  @IsString()
   name: string;
 
   @IsEmail()

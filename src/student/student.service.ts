@@ -38,6 +38,7 @@ export class StudentService {
     });
 
     const hashedPassword = await hash('123456', 8);
+    console.log(hashedPassword);
 
     await this.prisma.user.create({
       data: {
