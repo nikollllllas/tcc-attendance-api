@@ -26,6 +26,8 @@ model Classroom {
   Beacon    Beacon[]
   subject   Subject  @relation(fields: [subjectId], references: [id])
   subjectId Int
+
+  schoolCalls SchoolCall[] @relation("ClassroomSchoolCalls")
 }
 
 model Course {
@@ -35,6 +37,22 @@ model Course {
 
   subjects Subject[] @relation("CourseSubjects")
   students Student[] @relation("StudentCourses")
+}
+
+model SchoolCall {
+  id        Int    @id @default(autoincrement())
+  studentId String
+  cpf       String
+
+  subjectId   Int?
+  classroomId Int?
+
+  createdAt DateTime  @default(now())
+  students  Student[] @relation("StudentSchoolCalls")
+  subject   Subject?  @relation(fields: [subjectId], references: [id], name: "SubjectSchoolCalls")
+  classroom Classroom? @relation(fields: [classroomId], references: [id], name: "ClassroomSchoolCalls")
+
+  @@unique([subjectId, classroomId, createdAt])
 }
 
 model Student {
@@ -47,8 +65,9 @@ model Student {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
-  subjects Subject[] @relation("StudentSubjects")
-  courses  Course[]  @relation("StudentCourses")
+  subjects    Subject[]    @relation("StudentSubjects")
+  courses     Course[]     @relation("StudentCourses")
+  schoolCalls SchoolCall[] @relation("StudentSchoolCalls")
 }
 
 model Subject {
@@ -57,11 +76,12 @@ model Subject {
   description String
   workload    Int
 
-  beacons    Beacon[]
-  classrooms Classroom[]
-  courses    Course[]    @relation("CourseSubjects")
-  students   Student[]   @relation("StudentSubjects")
-  teachers   Teacher[]   @relation("TeacherSubjects")
+  beacons     Beacon[]
+  classrooms  Classroom[]
+  courses     Course[]     @relation("CourseSubjects")
+  students    Student[]    @relation("StudentSubjects")
+  teachers    Teacher[]    @relation("TeacherSubjects")
+  schoolCalls SchoolCall[] @relation("SubjectSchoolCalls")
 }
 
 model Teacher {

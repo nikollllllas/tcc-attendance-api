@@ -8,6 +8,7 @@ import { SubjectModule } from './subject/subject.module';
 import { BeaconModule } from './beacon/beacon.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { SchoolCallModule } from './school-call/school-call.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ConfigModule } from '@nestjs/config';
     BeaconModule,
     ClassroomModule,
     CourseModule,
+    SchoolCallModule,
     StudentModule,
     SubjectModule,
     TeacherModule
