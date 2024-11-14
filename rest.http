@@ -1,6 +1,6 @@
 
 ### Var
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Im5pa29sbGFzIG9odGEiLCJlbWFpbCI6Im5pa29sbGFzQGVtYWlsLmNvbSIsImlhdCI6MTcyMjU1MDExMywiZXhwIjoxNzIzMTU0OTEzfQ.P4y30FPgsCU9aAXbcJCdKkpoESKhLmAkyjGsXbH6FbE
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5pa29sbGFzIG9odGEiLCJlbWFpbCI6Im5pa29sbGFzQGVtYWlsLmNvbSIsImlhdCI6MTczMDM4MDk3NywiZXhwIjoxNzMwOTg1Nzc3fQ.oMTPI1khNDAw8_mq4gk70Fe07yg0hF9hn2a2F4qv7Tg
 @url = http://localhost:3000
 
 ### Login Request
@@ -9,8 +9,8 @@ Content-Type: application/json
 
 # Aluno
 {
-  "id": 2,
-  "password": "123456"
+  "id": 1,
+  "password": "12345678"
 }
 
 ### Create - Beacon
@@ -19,9 +19,8 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "uuid": "ea332d85-7070-4515-8e6c-36d32b5feaf4",
+  "uuid": "ea332d85-7070-4515-8e6c-36d32b5feaf5",
   "subjectId": 1,
-  "classroomId": 5,
   "teacherId": 1
 }
 ###
@@ -34,44 +33,6 @@ token: {{token}}
 ### Get by Id - Beacon
 GET {{url}}/beacons/1
 token: {{token}}
-
-
-### Create - Classroom
-POST {{url}}/classrooms
-token: {{token}}
-Content-Type: application/json
-
-{
-  "labNumber": 3,
-  "subjectId": 1
-}
-###
-
-### Get All - Classroom
-GET {{url}}/classrooms
-token: {{token}}
-###
-
-### Get by Id - Classroom
-GET {{url}}/classrooms/7
-token: {{token}}
-###
-
-### Update - Classroom
-PATCH {{url}}/classrooms/7
-token: {{token}}
-Content-Type: application/json
-
-{
-  "labNumber": 50,
-  "subjectId": 1
-}
-###
-
-### Delete - Classroom
-DELETE {{url}}/classrooms/7
-token: {{token}}
-###
 
 
 
@@ -181,11 +142,10 @@ Content-Type: application/json
 ### Get All - Student
 GET {{url}}/students
 token: {{token}}
-token: 
 ###
 
 ### Get by Id - Student
-GET {{url}}/students/123
+GET {{url}}/students/1
 token: {{token}}
 ###
 

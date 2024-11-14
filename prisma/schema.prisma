@@ -11,23 +11,10 @@ model Beacon {
   id   Int    @id @default(autoincrement())
   uuid String @unique
 
-  subject     Subject   @relation(fields: [subjectId], references: [id])
-  classroom   Classroom @relation(fields: [classroomId], references: [id])
-  teacher     Teacher   @relation(fields: [teacherId], references: [id])
-  subjectId   Int
-  classroomId Int
-  teacherId   Int
-}
-
-model Classroom {
-  id        Int @id @default(autoincrement())
-  labNumber Int @unique
-
-  Beacon    Beacon[]
-  subject   Subject  @relation(fields: [subjectId], references: [id])
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
   subjectId Int
-
-  schoolCalls SchoolCall[] @relation("ClassroomSchoolCalls")
+  teacherId Int
 }
 
 model Course {
@@ -40,19 +27,16 @@ model Course {
 }
 
 model SchoolCall {
-  id        Int    @id @default(autoincrement())
-  studentId String
-  cpf       String
+  id  Int    @id @default(autoincrement())
+  cpf String
 
-  subjectId   Int?
-  classroomId Int?
+  subjectId Int?
 
   createdAt DateTime  @default(now())
   students  Student[] @relation("StudentSchoolCalls")
   subject   Subject?  @relation(fields: [subjectId], references: [id], name: "SubjectSchoolCalls")
-  classroom Classroom? @relation(fields: [classroomId], references: [id], name: "ClassroomSchoolCalls")
 
-  @@unique([subjectId, classroomId, createdAt])
+  @@unique([subjectId, createdAt])
 }
 
 model Student {
@@ -61,12 +45,13 @@ model Student {
   academicalRegister String   @unique
   name               String
   email              String
+  courseId           Int
   birthDate          String
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
+  course      Course       @relation("StudentCourses", fields: [courseId], references: [id])
   subjects    Subject[]    @relation("StudentSubjects")
-  courses     Course[]     @relation("StudentCourses")
   schoolCalls SchoolCall[] @relation("StudentSchoolCalls")
 }
 
@@ -77,7 +62,6 @@ model Subject {
   workload    Int
 
   beacons     Beacon[]
-  classrooms  Classroom[]
   courses     Course[]     @relation("CourseSubjects")
   students    Student[]    @relation("StudentSubjects")
   teachers    Teacher[]    @relation("TeacherSubjects")

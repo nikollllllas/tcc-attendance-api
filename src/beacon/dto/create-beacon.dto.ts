@@ -8,8 +8,5 @@ export class CreateBeaconDto {
   subjectId: number;
 
   @IsInt()
-  classroomId: number;
-
-  @IsInt()
   teacherId: number;
 }

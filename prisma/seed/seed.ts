@@ -1,12 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import { hash } from 'bcrypt';
+import { PrismaClient } from "@prisma/client"
+import { hash } from "bcrypt"
 
-// import { randomUUID } from 'crypto';
-
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function main() {
-  const hashedPassword = await hash('12345678', 8);
+  const hashedPassword = await hash("12345678", 8)
 
   const nikollas = await prisma.user.upsert({
     where: { id: 1 },
@@ -14,13 +12,13 @@ async function main() {
     update: {},
 
     create: {
-      name: 'nikollas ohta',
+      name: "nikollas ohta",
 
-      email: 'nikollas@email.com',
+      email: "nikollas@email.com",
 
-      password: hashedPassword
-    }
-  });
+      password: hashedPassword,
+    },
+  })
 
   const bob = await prisma.user.upsert({
     where: { id: 2 },
@@ -28,13 +26,13 @@ async function main() {
     update: {},
 
     create: {
-      name: 'bob bobson',
+      name: "bob bobson",
 
-      email: 'bob@email.com',
+      email: "bob@email.com",
 
-      password: hashedPassword
-    }
-  });
+      password: hashedPassword,
+    },
+  })
 
   const uill = await prisma.user.upsert({
     where: { id: 3 },
@@ -42,13 +40,13 @@ async function main() {
     update: {},
 
     create: {
-      name: 'uill asta',
+      name: "uill asta",
 
-      email: 'uill@email.com',
+      email: "uill@email.com",
 
-      password: hashedPassword
-    }
-  });
+      password: hashedPassword,
+    },
+  })
 
   const louis = await prisma.user.upsert({
     where: { id: 4 },
@@ -56,13 +54,13 @@ async function main() {
     update: {},
 
     create: {
-      name: 'louis philipp',
+      name: "louis philipp",
 
-      email: 'louis@email.com',
+      email: "louis@email.com",
 
-      password: hashedPassword
-    }
-  });
+      password: hashedPassword,
+    },
+  })
 
   const adriel = await prisma.user.upsert({
     where: { id: 5 },
@@ -70,13 +68,66 @@ async function main() {
     update: {},
 
     create: {
-      name: 'adriel luke',
+      name: "adriel luke",
 
-      email: 'adriel@email.com',
+      email: "adriel@email.com",
 
-      password: hashedPassword
-    }
-  });
+      password: hashedPassword,
+    },
+  })
+
+  const course = await prisma.course.upsert({
+    where: { id: 1 },
+
+    update: {},
+
+    create: {
+      name: "Engenharia de Software",
+      description: "Curso de Engenharia de Software",
+    },
+  })
+
+  await prisma.subject.upsert({
+    where: { id: 1 },
+
+    update: {},
+
+    create: {
+      name: "Matemática",
+      description: "Matemática",
+      workload: 60,
+    },
+  })
+
+  await prisma.subject.upsert({
+    where: { id: 2 },
+
+    update: {},
+
+    create: {
+      name: "Português",
+      description: "Português",
+      workload: 60,
+    },
+  })
+
+  await prisma.student.upsert({
+    where: { id: 1 },
+
+    update: {},
+
+    create: {
+      name: "nikollas ohta",
+      email: "nikollas@email.com",
+      academicalRegister: "123456",
+      birthDate: "1999-01-01",
+      cpf: "123456789",
+      courseId: course.id,
+      subjects: {
+        connect: [{ id: 1 }, { id: 2 }],
+      },
+    },
+  })
 
   console.log({
     nikollas,
@@ -87,7 +138,7 @@ async function main() {
 
     louis,
 
-    adriel
+    adriel,
     /* 
     subject1,
 
@@ -110,18 +161,18 @@ async function main() {
     student1,
 
     student2 */
-  });
+  })
 }
 
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await prisma.$disconnect()
   })
 
   .catch(async (e) => {
-    console.error(e);
+    console.error(e)
 
-    await prisma.$disconnect();
+    await prisma.$disconnect()
 
-    process.exit(1);
-  });
+    process.exit(1)
+  })

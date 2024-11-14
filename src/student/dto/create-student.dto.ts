@@ -3,30 +3,29 @@ import {
   IsDateString,
   IsEmail,
   IsInt,
-  IsString
-} from 'class-validator';
+  IsString,
+} from "class-validator"
 
 export class CreateStudentDto {
   @IsString()
-  cpf: string;
+  cpf: string
 
   @IsString()
-  academicalRegister: string;
+  academicalRegister: string
 
   @IsString()
-  name: string;
+  name: string
 
   @IsEmail()
-  email: string;
+  email: string
 
   @IsDateString()
-  birthDate: string;
+  birthDate: string
 
   @IsArray()
   @IsInt({ each: true })
-  subjects: number[];
+  subjects: number[]
 
-  @IsArray()
-  @IsInt({ each: true })
-  courses: number[];
+  @IsInt()
+  courseId: number
 }
