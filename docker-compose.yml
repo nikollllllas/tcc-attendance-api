@@ -15,17 +15,3 @@ services:
       - "5432:5432"
     networks:
       - postgres-network
-
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@email.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    networks:
-      - postgres-network
-    ports:
-      - "15432:80"
-
-networks:
-  postgres-network:
