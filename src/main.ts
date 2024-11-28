@@ -3,6 +3,8 @@ import { ValidationPipe } from "@nestjs/common"
 import { AppModule } from "./app.module"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 
+const URLS = ["http://localhost:5173", "https://tcc-attendance.netlify.app"]
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.useGlobalPipes(
@@ -13,7 +15,7 @@ async function bootstrap() {
   )
 
   app.enableCors({
-    origin: "http://localhost:5173",
+    origin: URLS,
     maxAge: 3600,
     allowedHeaders: ["token", "content-type"],
     credentials: true,
