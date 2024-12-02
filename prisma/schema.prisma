@@ -7,16 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Beacon {
-  id   Int    @id @default(autoincrement())
-  uuid String @unique
-
-  subject   Subject @relation(fields: [subjectId], references: [id])
-  teacher   Teacher @relation(fields: [teacherId], references: [id])
-  subjectId Int
-  teacherId Int
-}
-
 model Course {
   id          Int    @id @default(autoincrement())
   name        String
@@ -28,12 +18,11 @@ model Course {
 
 model SchoolCall {
   id            Int      @id @default(autoincrement())
+  studentId     Int
   proximityUUID String
-  subjectId     Int
   createdAt     DateTime @default(now())
-  
-  students Student[] @relation("StudentSchoolCalls")
-  subject  Subject  @relation(fields: [subjectId], references: [id], name: "SubjectSchoolCalls")
+
+  students Student @relation("StudentSchoolCalls", fields: [studentId], references: [id])
 }
 
 model Student {
@@ -47,9 +36,9 @@ model Student {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
-  course      Course       @relation("StudentCourses", fields: [courseId], references: [id])
-  subjects    Subject[]    @relation("StudentSubjects")
-  schoolCalls SchoolCall[] @relation("StudentSchoolCalls")
+  course     Course       @relation("StudentCourses", fields: [courseId], references: [id])
+  subjects   Subject[]    @relation("StudentSubjects")
+  schoolCall SchoolCall[] @relation("StudentSchoolCalls")
 }
 
 model Subject {
@@ -58,11 +47,9 @@ model Subject {
   description String
   workload    Int
 
-  beacons     Beacon[]
-  courses     Course[]     @relation("CourseSubjects")
-  students    Student[]    @relation("StudentSubjects")
-  teachers    Teacher[]    @relation("TeacherSubjects")
-  schoolCalls SchoolCall[] @relation("SubjectSchoolCalls")
+  courses  Course[]  @relation("CourseSubjects")
+  students Student[] @relation("StudentSubjects")
+  teachers Teacher[] @relation("TeacherSubjects")
 }
 
 model Teacher {
@@ -73,7 +60,6 @@ model Teacher {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  beacons  Beacon[]
   subjects Subject[] @relation("TeacherSubjects")
 }
 

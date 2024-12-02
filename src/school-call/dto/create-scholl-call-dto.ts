@@ -2,11 +2,8 @@ import { IsInt, IsString } from "class-validator"
 
 export class CreateSchoolCallDto {
   @IsInt()
-  subjectId: number
+  studentId: number
 
   @IsString()
   proximityUUID: string
-
-  @IsInt()
-  studentId: number
 }

@@ -22,13 +22,7 @@ export class SchoolCallService {
   }
 
   async create(createSchoolCallDto: CreateSchoolCallDto) {
-    const { subjectId, proximityUUID, studentId } = createSchoolCallDto
-
-    const subject = await this.prisma.subject.findUnique({
-      where: { id: subjectId },
-    })
-
-    if (!subject) throw new NotFoundException("Subject not found")
+    const { proximityUUID, studentId } = createSchoolCallDto
 
     const student = await this.prisma.student.findUnique({
       where: { id: studentId },
@@ -39,11 +33,9 @@ export class SchoolCallService {
     const schoolCall = await this.prisma.schoolCall.create({
       data: {
         proximityUUID,
-        subject: { connect: { id: subjectId } },
-        students: { connect: [{ id: studentId }] },
+        
       },
       include: {
-        subject: true,
         students: true,
       },
     })
