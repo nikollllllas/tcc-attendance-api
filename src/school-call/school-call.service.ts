@@ -22,7 +22,7 @@ export class SchoolCallService {
   }
 
   async create(createSchoolCallDto: CreateSchoolCallDto) {
-    const { subjectId, students } = createSchoolCallDto
+    const { subjectId, proximityUUID, studentId } = createSchoolCallDto
 
     const subject = await this.prisma.subject.findUnique({
       where: { id: subjectId },
@@ -30,13 +30,25 @@ export class SchoolCallService {
 
     if (!subject) throw new NotFoundException("Subject not found")
 
-    return this.prisma.schoolCall.create({
+    const student = await this.prisma.student.findUnique({
+      where: { id: studentId },
+    })
+
+    if (!student) throw new NotFoundException("Student not found")
+
+    const schoolCall = await this.prisma.schoolCall.create({
       data: {
-        cpf: students[0].toString(),
+        proximityUUID,
         subject: { connect: { id: subjectId } },
-        students: { connect: students.map((id) => ({ id })) },
+        students: { connect: [{ id: studentId }] },
+      },
+      include: {
+        subject: true,
+        students: true,
       },
     })
+
+    return { message: 'Attendance recorded successfully', schoolCall }
   }
 
   async remove(id: number) {

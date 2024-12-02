@@ -27,16 +27,13 @@ model Course {
 }
 
 model SchoolCall {
-  id  Int    @id @default(autoincrement())
-  cpf String
-
-  subjectId Int?
-
-  createdAt DateTime  @default(now())
-  students  Student[] @relation("StudentSchoolCalls")
-  subject   Subject?  @relation(fields: [subjectId], references: [id], name: "SubjectSchoolCalls")
-
-  @@unique([subjectId, createdAt])
+  id            Int      @id @default(autoincrement())
+  proximityUUID String
+  subjectId     Int
+  createdAt     DateTime @default(now())
+  
+  students Student[] @relation("StudentSchoolCalls")
+  subject  Subject  @relation(fields: [subjectId], references: [id], name: "SubjectSchoolCalls")
 }
 
 model Student {
