@@ -22,7 +22,7 @@ model SchoolCall {
   proximityUUID String
   createdAt     DateTime @default(now())
 
-  Student Student @relation(fields: [studentId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
 }
 
 model Student {

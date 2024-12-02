@@ -7,15 +7,12 @@ export class SchoolCallService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.schoolCall.findMany({
-      include: { Student: true },
-    })
+    return this.prisma.schoolCall.findMany({})
   }
 
   async findOne(id: number) {
     const schoolCall = await this.prisma.schoolCall.findUnique({
       where: { id },
-      include: { Student: true },
     })
     if (!schoolCall) throw new NotFoundException("School call not found")
     return schoolCall
