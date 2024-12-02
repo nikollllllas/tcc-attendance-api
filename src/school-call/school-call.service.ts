@@ -8,14 +8,14 @@ export class SchoolCallService {
 
   async findAll() {
     return this.prisma.schoolCall.findMany({
-      include: { students: true },
+      include: { Student: true },
     })
   }
 
   async findOne(id: number) {
     const schoolCall = await this.prisma.schoolCall.findUnique({
       where: { id },
-      include: { students: true },
+      include: { Student: true },
     })
     if (!schoolCall) throw new NotFoundException("School call not found")
     return schoolCall
@@ -34,9 +34,6 @@ export class SchoolCallService {
       data: {
         proximityUUID,
         studentId,
-      },
-      include: {
-        students: true,
       },
     })
 

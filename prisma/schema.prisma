@@ -22,7 +22,7 @@ model SchoolCall {
   proximityUUID String
   createdAt     DateTime @default(now())
 
-  students Student @relation("StudentSchoolCalls", fields: [studentId], references: [id])
+  Student Student @relation(fields: [studentId], references: [id])
 }
 
 model Student {
@@ -38,7 +38,7 @@ model Student {
 
   course     Course       @relation("StudentCourses", fields: [courseId], references: [id])
   subjects   Subject[]    @relation("StudentSubjects")
-  schoolCall SchoolCall[] @relation("StudentSchoolCalls")
+  SchoolCall SchoolCall[]
 }
 
 model Subject {
