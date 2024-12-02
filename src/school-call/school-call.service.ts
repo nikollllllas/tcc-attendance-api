@@ -8,14 +8,14 @@ export class SchoolCallService {
 
   async findAll() {
     return this.prisma.schoolCall.findMany({
-      include: { subject: true, students: true },
+      include: { students: true },
     })
   }
 
   async findOne(id: number) {
     const schoolCall = await this.prisma.schoolCall.findUnique({
       where: { id },
-      include: { subject: true, students: true },
+      include: { students: true },
     })
     if (!schoolCall) throw new NotFoundException("School call not found")
     return schoolCall
@@ -33,14 +33,14 @@ export class SchoolCallService {
     const schoolCall = await this.prisma.schoolCall.create({
       data: {
         proximityUUID,
-        
+        studentId,
       },
       include: {
         students: true,
       },
     })
 
-    return { message: 'Attendance recorded successfully', schoolCall }
+    return { message: "Attendance recorded successfully", schoolCall }
   }
 
   async remove(id: number) {
