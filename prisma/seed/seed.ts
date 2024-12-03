@@ -88,6 +88,18 @@ async function main() {
   })
 
   await prisma.subject.upsert({
+    where: { id: 2 },
+
+    update: {},
+
+    create: {
+      name: "Sistemas de Informação",
+      description: "Curso de Sistemas de Informação",
+      workload: 60,
+    },
+  })
+
+  await prisma.subject.upsert({
     where: { id: 1 },
 
     update: {},
@@ -129,15 +141,26 @@ async function main() {
     },
   })
 
+  await prisma.teacher.upsert({
+    where: { id: 1 },
+
+    update: {},
+
+    create: {
+      name: "bob bobson",
+      email: "piffer@prof.unipar.br",
+      cpf: "123456789",
+      subjects: {
+        connect: [{ id: 1 }, { id: 2 }],
+      },
+    },
+  })
+
   console.log({
     nikollas,
-
     bob,
-
     uill,
-
     louis,
-
     adriel,
     /* 
     subject1,
@@ -152,15 +175,8 @@ async function main() {
 
     teacher2,
 
-    beacon1,
-
-    beacon2,
-
     course1,
-
-    student1,
-
-    student2 */
+*/
   })
 }
 
