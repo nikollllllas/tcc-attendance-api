@@ -7,7 +7,7 @@ export class SchoolCallService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.schoolCall.findMany({})
+    return this.prisma.schoolCall.findMany()
   }
 
   async findOne(id: number) {
