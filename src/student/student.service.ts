@@ -61,6 +61,17 @@ export class StudentService {
     return this.prisma.student.findUnique({ where: { id } })
   }
 
+  findAllUsers() {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        // Excluding password for security
+      }
+    })
+  }
+
   async update(id: number, updateStudentDto: UpdateStudentDto) {
     const subjects = await this.prisma.subject.findMany({
       where: { id: { in: updateStudentDto.subjects } },

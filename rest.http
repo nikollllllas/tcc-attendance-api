@@ -198,3 +198,8 @@ Content-Type: application/json
   "studentId": 1,
   "proximityUUID": "ea332d85-7070-4515-8e6c-36d32b5feaf556789"
 }
+
+
+### Get All - Users
+GET {{url}}/students/users
+token: {{token}}

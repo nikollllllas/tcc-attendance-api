@@ -20,29 +20,29 @@ async function main() {
     },
   })
 
-  const bob = await prisma.user.upsert({
+  const john = await prisma.user.upsert({
     where: { id: 2 },
 
     update: {},
 
     create: {
-      name: "bob bobson",
+      name: "john doe",
 
-      email: "bob@email.com",
+      email: "john@email.com",
 
       password: hashedPassword,
     },
   })
 
-  const uill = await prisma.user.upsert({
+  const mary = await prisma.user.upsert({
     where: { id: 3 },
 
     update: {},
 
     create: {
-      name: "uill asta",
+      name: "mary jane",
 
-      email: "uill@email.com",
+      email: "mary@email.com",
 
       password: hashedPassword,
     },
@@ -147,7 +147,7 @@ async function main() {
     update: {},
 
     create: {
-      name: "bob bobson",
+      name: "Elyssandro Piffer",
       email: "piffer@prof.unipar.br",
       cpf: "123456789",
       subjects: {
@@ -158,8 +158,8 @@ async function main() {
 
   console.log({
     nikollas,
-    bob,
-    uill,
+    john,
+    mary,
     louis,
     adriel,
     /* 

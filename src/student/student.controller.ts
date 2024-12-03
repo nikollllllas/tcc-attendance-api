@@ -32,6 +32,12 @@ export class StudentController {
     return this.studentService.findAll();
   }
 
+  @Get("/users")
+  @ApiSecurity('token')
+  findAllUsers() {
+    return this.studentService.findAllUsers();
+  }
+
   @Get(':id')
   @ApiSecurity('token')
   findOne(@Param('id') id: string) {
