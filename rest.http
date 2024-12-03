@@ -1,6 +1,6 @@
 
 ### Var
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5pa29sbGFzIG9odGEiLCJlbWFpbCI6Im5pa29sbGFzQGVtYWlsLmNvbSIsImlhdCI6MTczMDM4MDk3NywiZXhwIjoxNzMwOTg1Nzc3fQ.oMTPI1khNDAw8_mq4gk70Fe07yg0hF9hn2a2F4qv7Tg
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5pa29sbGFzIG9odGEiLCJlbWFpbCI6Im5pa29sbGFzQGVtYWlsLmNvbSIsImlhdCI6MTczMzE4MzM1MSwiZXhwIjoxNzMzNzg4MTUxfQ.4fkz6M-CtKAtG7k5YhNt2RQJzfBSbM1wZ1iHnl-QRx4
 @url = http://localhost:3000
 
 ### Login Request
@@ -12,29 +12,6 @@ Content-Type: application/json
   "id": 1,
   "password": "12345678"
 }
-
-### Create - Beacon
-POST {{url}}/beacons
-token: {{token}}
-Content-Type: application/json
-
-{
-  "uuid": "ea332d85-7070-4515-8e6c-36d32b5feaf5",
-  "subjectId": 1,
-  "teacherId": 1
-}
-###
-
-### Get All - Beacon 
-GET {{url}}/beacons
-token: {{token}}
-###
-
-### Get by Id - Beacon
-GET {{url}}/beacons/1
-token: {{token}}
-
-
 
 ### Create - Course
 POST {{url}}/courses
@@ -211,3 +188,13 @@ Content-Type: application/json
 DELETE {{url}}/teachers/3
 token: {{token}}
 ###
+
+### Create - School Call
+POST {{url}}/school-call
+token: {{token}}
+Content-Type: application/json
+
+{
+  "studentId": 1,
+  "proximityUUID": "ea332d85-7070-4515-8e6c-36d32b5feaf556789"
+}
