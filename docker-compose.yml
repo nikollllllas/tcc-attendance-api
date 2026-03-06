@@ -1,8 +1,6 @@
-version: '3.9'
-
 services:
   postgres:
-    image: postgres
+    image: postgres:latest
     restart: always
     shm_size: 128mb
     volumes:
@@ -13,5 +11,3 @@ services:
       PGDATA: /var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - postgres-network
